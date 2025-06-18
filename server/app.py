@@ -6,7 +6,9 @@ import hashlib
 import base64
 from io import BytesIO
 import smtplib
+from dotenv import load_dotenv
 import os
+load_dotenv()
 app = Flask(__name__)
 CORS(app, resources={
     r"/*": {
@@ -16,8 +18,8 @@ CORS(app, resources={
         ]
     }
 })
-
-client = MongoClient("mongodb+srv://ssanthoshraj2730:Kavi102109@cluster1.wxmubv4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1")
+mongo_uri = os.getenv("MONGO_URI")
+client = MongoClient(mongo_uri)
 db = client["Profolio"]
 collection = db["SmallPhoto"]
 

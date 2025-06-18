@@ -99,7 +99,7 @@ const [profilePhoto, setProfilePhoto] = useState(null); // Start with null
 useEffect(() => {
   const fetchProfilePhoto = async () => {
     try {
-      const response = await axios.get('process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000/get-smallimage/myphoto', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000'}/get-smallimage/myphoto`, {
         responseType: 'blob' // Important for binary data
       });
       
@@ -126,7 +126,7 @@ const [fullSizePhoto, setFullSizePhoto] = useState(null);
   useEffect(() => {
     const fetchFullSizePhoto = async () => {
       try {
-        const response = await axios.get('process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000/get_largeimage/Fullsizephone', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000'}/get_largeimage/Fullsizephone`, {
           responseType: 'blob'
         });
         const imageUrl = URL.createObjectURL(response.data);
@@ -148,7 +148,7 @@ const [fullSizePhoto, setFullSizePhoto] = useState(null);
   const [aboutParagraph, setAboutParagraph] = useState("");
   const fetchAboutParagraph = async () => {
   try {
-    const response = await axios.get('process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000/get-para');
+    const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000'}/get-para`);
     setAboutParagraph(response.data.paragraph);
   } catch (error) {
     console.error("Error fetching about paragraph:", error);
@@ -160,7 +160,7 @@ const [fullSizePhoto, setFullSizePhoto] = useState(null);
 
   const fetchSkills = async () => {
     try {
-      const response = await axios.get('process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000/get-skills');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000'}/get-skills`);
       setSkills(response.data.skills);
     } catch (error) {
       console.error("Error fetching skills:", error);
@@ -176,7 +176,7 @@ const [fullSizePhoto, setFullSizePhoto] = useState(null);
   const [experiences, setExperiences] = useState([]);
 const fetchExperiences = async () => {
   try {
-    const response = await axios.get('process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000/get-experience');
+    const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000'}/get-experience`);
     setExperiences(response.data.experiences);
   } catch (error) {
     console.error("Error fetching experiences:", error);
@@ -189,7 +189,7 @@ const [projects, setProjects] = useState([]);
 
 const fetchProjects = async () => {
   try {
-    const response = await axios.get('process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000/get-projects');
+    const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000'}/get-projects`);
     const projectsWithImages = response.data.projects.map(project => ({
       ...project,
       // Make sure to include the proper data URL prefix
@@ -208,7 +208,7 @@ const [contactLinks, setContactLinks] = useState([]);
 
 const fetchContactLinks = async () => {
   try {
-    const response = await axios.get('process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000/get-contactlinks');
+    const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000'}/get-contactlinks`);
     setContactLinks(response.data.links);
   } catch (error) {
     console.error("Error fetching contact links:", error);
@@ -240,11 +240,16 @@ const handleSubmit = async (e) => {
       formDataToSend.append('subject', formData.subject);
     }
 
-    const response = await axios.post("process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000/form", formDataToSend, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
+    const response = await axios.post(
+  `${process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000'}/form`,
+  formDataToSend,
+  {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  }
+);
+
     
     alert(response.data.message || "Form submitted successfully!");
     setFormData({ name: "", email: "", subject: "", message: "" }); // Clear form fields
@@ -263,7 +268,7 @@ const [contactInfo, setContactInfo] = useState({
 useEffect(() => {
   const fetchContactInfo = async () => {
     try {
-      const response = await axios.get('process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000/get-contact-info');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000'}/get-contact-info`);
       setContactInfo({
         email: response.data.email || 'santhoshrajworkspace@gmail.com',
         phone: response.data.phone || '8610511996',
@@ -288,7 +293,7 @@ const [menuIcon, setMenuIcon] = useState(null);
 useEffect(() => {
   const fetchMenuIcon = async () => {
     try {
-      const response = await axios.get('process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000/get-smallimage/menu-icon', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000'}/get-smallimage/menu-icon`, {
         responseType: 'blob'
       });
       const imageUrl = URL.createObjectURL(response.data);
